@@ -1,0 +1,47 @@
+{
+  "name": "iot-doorway",
+  "version": "1.0.0",
+  "description": "Opening the gateway to seamless IoT communication.",
+  "homepage": "https://github.com/uahachik/IoT-Doorway.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uahachik/IoT-Doorway.git"
+  },
+  "keywords": [
+    "aws",
+    "iot"
+  ],
+  "main": "pub_sub/src/index.ts",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "tsc": "tsc",
+    "build": "tsc"
+  },
+  "author": "Roman Kotenko",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-sdk": "^2.7.4",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^10.17.54",
+    "@types/puppeteer": "^5.4.7",
+    "@types/uuid": "^10.0.0",
+    "@types/ws": "8.5.4",
+    "cmake-js": "^7.3.0",
+    "jest": "^27.2.1",
+    "jest-puppeteer": "^10.0.1",
+    "jest-runtime": "^27.2.1",
+    "puppeteer": "^24.4.0",
+    "ts-jest": "^27.0.5",
+    "typedoc": "^0.24.8",
+    "typedoc-plugin-merge-modules": "^5.1.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@aws-sdk/client-iot": "^3.758.0",
+    "@aws-sdk/client-sts": "^3.758.0",
+    "@aws-sdk/util-utf8-browser": "^3.109.0",
+    "aws-crt": "1.21.8",
+    "aws-iot-device-sdk-v2": "^1.21.1",
+    "uuid": "^7.0.3"
+  }
+}

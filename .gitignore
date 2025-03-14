@@ -1,0 +1,28 @@
+# Dependency directories
+node_modules/
+pub_sub/node_modules
+
+# dotenv environment variables file
+.env
+.env.test
+
+# dist folder
+dist/
+build/
+
+### macOS ###
+# General
+**/.DS_Store
+.AppleDouble
+.LSOverride
+
+# VSCode
+.vscode/
+
+# package locks
+package-lock.json
+
+# certificates and keys
+*.crt
+*.pem
+*.key
