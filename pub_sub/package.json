@@ -1,0 +1,10 @@
+{
+  "name": "pub_sub",
+  "version": "1.0.0",
+  "author": "Roman Kotenko",
+  "license": "GPL-3.0",
+  "main": "./dist/index.js",
+  "scripts": {
+    "tsc": "tsc"
+  }
+}

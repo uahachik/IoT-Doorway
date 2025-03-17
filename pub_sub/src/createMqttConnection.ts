@@ -1,21 +1,20 @@
-import * as path from 'path';
+import { config } from 'dotenv';
+config({ path: '../.env' });
 import { mqtt, iot } from 'aws-iot-device-sdk-v2';
 import { v4 as uuidv4 } from 'uuid';
 
-const rootDir = path.resolve(__dirname, '../../');
-const certPath = path.resolve(rootDir, 'TestUserMacBook.cert.pem');
-const keyPath = path.resolve(rootDir, 'TestUserMacBook.private.key');
-
 export async function createMqttConnection() {
   try {
-    const endpoint = "a2bsnixthxysrf-ats.iot.us-east-1.amazonaws.com";
+    const certificate = process.env.AWS_IOT_CERTIFICATE!;
+    const privateKey = process.env.AWS_IOT_PRIVATE_KEY!;
+    const endpoint = process.env.AWS_ENDPOINT!;
     const clientId = `myDevice-${uuidv4()}`;
 
     const mqttClient = new mqtt.MqttClient();
 
-    const configBuilder = iot.AwsIotMqttConnectionConfigBuilder.new_mtls_builder_from_path(
-      certPath,
-      keyPath
+    const configBuilder = iot.AwsIotMqttConnectionConfigBuilder.new_mtls_builder(
+      certificate,
+      privateKey,
     );
     configBuilder.with_endpoint(endpoint);
     configBuilder.with_client_id(clientId);

@@ -42,6 +42,7 @@
     "@aws-sdk/util-utf8-browser": "^3.109.0",
     "aws-crt": "1.21.8",
     "aws-iot-device-sdk-v2": "^1.21.1",
+    "dotenv": "^16.4.7",
     "uuid": "^7.0.3"
   }
 }

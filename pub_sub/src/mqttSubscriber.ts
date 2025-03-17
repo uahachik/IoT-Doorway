@@ -1,8 +1,7 @@
 import { mqtt } from 'aws-iot-device-sdk-v2';
 import { createMqttConnection } from './createMqttConnection';
 
-export default async function subscribeToTopic() {
-  const topic = "sdk/test/js";
+export default async function subscribeToTopic({ topic }: PubSubArgv) {
   const connection = await createMqttConnection();
 
   try {

@@ -1,24 +1,22 @@
 import { mqtt } from 'aws-iot-device-sdk-v2';
-// import { Argv } from 'yargs';
 import { createMqttConnection } from './createMqttConnection';
 
-export default async function publicToTopic() {
+export default async function publicToTopic({ topic, message }: PubSubArgv) {
   const count = 5;
-  const topic = "sdk/test/js";
-  const message = "Cheers from AWS CLI!";
 
   return new Promise<void>(async (resolve, reject) => {
     try {
       let published = false;
       let subscribed = false;
       const decoder = new TextDecoder('utf8');
+
       const on_publish = async (topic: string, payload: ArrayBuffer, dup: boolean, qos: mqtt.QoS, retain: boolean) => {
         const json = decoder.decode(payload);
         console.log(`🟣 Publish received. topic:"${topic}" dup:${dup} qos:${qos} retain:${retain}`);
         console.log(`📩 Publisher's payload: ${json}`);
         try {
-          const message = JSON.parse(json);
-          if (message.sequence == count) {
+          const parsedPayload = JSON.parse(json);
+          if (parsedPayload.sequence == count) {
             subscribed = true;
             if (subscribed && published) {
               resolve();
@@ -26,7 +24,7 @@ export default async function publicToTopic() {
           }
         }
         catch (error) {
-          console.log("Warning: Could not parse message as JSON...");
+          console.log('Warning: Could not parse message as JSON...');
         }
       };
 

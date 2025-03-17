@@ -61,8 +61,7 @@
     "include": [
         "*.ts",
         "src/**/*.ts",
-        "samples/node/pub_sub/index.ts",
-        "index.ts"
+        "src/**/*.d.ts"
     ],
     "exclude": [
         "node_modules"
