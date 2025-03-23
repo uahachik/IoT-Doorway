@@ -1,7 +1,7 @@
-import { config } from 'dotenv';
-config({ path: '../.env' });
 import { mqtt, iot } from 'aws-iot-device-sdk-v2';
 import { v4 as uuidv4 } from 'uuid';
+import { config } from 'dotenv';
+config({ path: '../.env' });
 
 export async function createMqttConnection() {
   try {
