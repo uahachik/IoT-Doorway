@@ -4,7 +4,9 @@
 
 `npm install`<br/>
 `cd pub_sub/`<br/>
-apply IoT certificate policy `node IoTCertificatePolicy/applyPolicy.js`
+
+apply IoT certificate policy `node IoTCertificatePolicy/applyPolicy.mjs`
+
 `ln -s ../node_modules node_modules`<br/>
 `npm run tsc`<br/>
 `node dist/index.js --topic sdk/test/mqtt --message 'Cheers from AWS CLI!'` (params optional)
