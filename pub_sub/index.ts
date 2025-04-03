@@ -1,6 +1,7 @@
 import yargs from 'yargs';
-import publishToTopic from './src/mqttPublisher';
-import subscribeToTopic from './src/mqttSubscriber';
+// import publishToTopic from './src/mqttPublisher';
+// import subscribeToTopic from './src/mqttSubscriber';
+import authMessage from './src/messanger/auth';
 
 yargs.command(
     '*',
@@ -13,6 +14,7 @@ yargs.command(
     .parse();
 
 async function main(argv: PubSubArgv) {
-    await subscribeToTopic(argv);
-    await publishToTopic(argv);
+    await authMessage(argv);
+    // await subscribeToTopic(argv);
+    // await publishToTopic(argv);
 }

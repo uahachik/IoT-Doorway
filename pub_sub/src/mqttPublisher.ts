@@ -1,21 +1,6 @@
 import { mqtt } from 'aws-iot-device-sdk-v2';
 import { createMqttConnection } from './createMqttConnection';
 
-const publishMessage = async (topic: string) => {
-  const connection = await createMqttConnection();
-  connection.on('disconnect', () => {
-    console.log("✅ publishMessage Disconnected from AWS IoT");
-  });
-
-  const message = JSON.stringify({ user: "JohnDoe", action: "login" });
-  console.log("🔆 publishMessage Connected to AWS IoT Core");
-
-  await connection.publish(/*"microservices/auth"*/ topic, message, mqtt.QoS.AtLeastOnce);
-  console.log("📩 Message sent:", message);
-
-  await connection.disconnect();
-};
-
 export default async function publicToTopic({ topic, message }: PubSubArgv) {
   const count = 5;
 
@@ -41,10 +26,6 @@ export default async function publicToTopic({ topic, message }: PubSubArgv) {
           console.log('on_publish Warning: Could not parse message as JSON...');
         }
       };
-
-
-
-      publishMessage(topic).catch(console.error);
 
       const connection = await createMqttConnection();
       connection.on('disconnect', () => {
