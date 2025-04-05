@@ -20,6 +20,7 @@
   "author": "Roman Kotenko",
   "license": "ISC",
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.148",
     "@types/aws-sdk": "^2.7.4",
     "@types/jest": "^27.0.1",
     "@types/node": "^10.17.54",

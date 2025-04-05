@@ -1,0 +1,12 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc",
+    "deploy": "sam build && sam deploy",
+    "deploy:init": "sam build && sam deploy --guided",
+    "lint": "sam validate --lint"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Doorwaty template describing my lambdas.
+Resources:
+  handleAuthMessage:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: handleAuthMessage
+      CodeUri: dist/handleAuthMessage
+      Description: Handle an authentication
+      MemorySize: 128
+      Timeout: 3
+      Handler: dist/index.handler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      EphemeralStorage:
+        Size: 512
+      EventInvokeConfig:
+        MaximumEventAgeInSeconds: 21600
+        MaximumRetryAttempts: 2
+      PackageType: Zip
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - logs:CreateLogGroup
+              Resource:
+                Fn::Sub: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
+            - Effect: Allow
+              Action:
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource:
+                Fn::Sub: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/handleAuthMessage:*"
+      RecursiveLoop: Terminate
+      SnapStart:
+        ApplyOn: None
+      Events:
+        IoTRule1:
+          Type: IoTRule
+          Properties:
+            Sql: SELECT * FROM 'doorway/auth/*'
+      RuntimeManagementConfig:
+        UpdateRuntimeOn: Auto
+
+  logMQTTMessages:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: logMQTTMessages
+      CodeUri: dist/logMQTTMessages
+      Description: MQTT messages
+      MemorySize: 128
+      Timeout: 3
+      Handler: dist/index.handler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      EphemeralStorage:
+        Size: 512
+      EventInvokeConfig:
+        MaximumEventAgeInSeconds: 21600
+        MaximumRetryAttempts: 2
+      PackageType: Zip
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - logs:CreateLogGroup
+              Resource:
+                Fn::Sub: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
+            - Effect: Allow
+              Action:
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource:
+                Fn::Sub: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/logMQTTMessages:*
+      RecursiveLoop: Terminate
+      SnapStart:
+        ApplyOn: None
+      Events:
+        IoTRule1:
+          Type: IoTRule
+          Properties:
+            Sql: SELECT * FROM 'sdk/test/*'
+      RuntimeManagementConfig:
+        UpdateRuntimeOn: Auto

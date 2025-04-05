@@ -1,14 +1,15 @@
 # Dependency directories
 node_modules/
-pub_sub/node_modules
+*/node_modules
 
 # dotenv environment variables file
 .env
 .env.test
 
-# dist folder
+# auto-generated folders
 dist/
 build/
+.aws-sam/
 
 ### macOS ###
 # General
