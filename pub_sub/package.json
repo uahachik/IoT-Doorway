@@ -5,6 +5,7 @@
   "license": "GPL-3.0",
   "main": "./dist/index.js",
   "scripts": {
-    "tsc": "tsc"
+    "build": "tsc",
+    "lint": "sam validate --lint"
   }
 }

@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Doorwaty template describing policies.
+Resources:
+  IoTPolicy:
+    Type: AWS::IoT::Policy
+    Properties:
+      PolicyName: myTestPolicies
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - iot:Connect
+            Resource:
+              - !Sub arn:aws:iot:${AWS::Region}:${AWS::AccountId}:client/*
+          - Effect: Allow
+            Action:
+              - "iot:Publish"
+              - "iot:Receive"
+              - "iot:PublishRetain"
+            Resource:
+              - !Sub arn:aws:iot:${AWS::Region}:${AWS::AccountId}:topic/doorway/auth
+              - !Sub arn:aws:iot:${AWS::Region}:${AWS::AccountId}:topic/sdk/test/*
+          - Effect: Allow
+            Action:
+              - iot:Subscribe
+            Resource:
+              - !Sub arn:aws:iot:${AWS::Region}:${AWS::AccountId}:topicfilter/doorway/auth
+              - !Sub arn:aws:iot:${AWS::Region}:${AWS::AccountId}:topicfilter/sdk/test/*

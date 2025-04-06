@@ -1,13 +1,37 @@
 # How to run
 
-### Add variables to the *.env* as specified in the .env.example. Don't forget to change "your-region" and "your-AWS-account-ID"
+### Install SAM CLI
+https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html
 
-`npm install`<br/>
-`cd pub_sub/`<br/>
+```sh
+bash ./bin/aws_sam_cli_install.sh 
+```
 
-apply IoT certificate policy `node IoTCertificatePolicy/applyPolicy.mjs`
+### Install CFN Lint
+https://github.com/aws-cloudformation/cfn-lint
 
-`ln -s ../node_modules node_modules`<br/>
-`npm run tsc`<br/>
-`node dist/index.js --topic sdk/test/mqtt --message 'Cheers from AWS CLI!'` (params optional)
+```sh
+brew install cfn-lint
+```
+
+### Add variables to the *.env* as specified in the .env.example.
+###### Don't forget to change "your-region" and "your-AWS-account-ID"
+
+```sh
+npm install
+```
+
+### read
+pub_sub/README.md
+### then read
+lambda/README.md
+
+---
+
+
+### to validate a template.yaml run
+```sh
+npm run lint
+```
+
 

@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
-Description: Doorwaty template describing my lambdas.
+Description: Doorway template describing my lambdas.
 Resources:
   handleAuthMessage:
     Type: AWS::Serverless::Function
@@ -25,14 +25,12 @@ Resources:
             - Effect: Allow
               Action:
                 - logs:CreateLogGroup
-              Resource:
-                Fn::Sub: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
+              Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
             - Effect: Allow
               Action:
                 - logs:CreateLogStream
                 - logs:PutLogEvents
-              Resource:
-                Fn::Sub: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/handleAuthMessage:*"
+              Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/handleAuthMessage:*"
       RecursiveLoop: Terminate
       SnapStart:
         ApplyOn: None
@@ -40,7 +38,7 @@ Resources:
         IoTRule1:
           Type: IoTRule
           Properties:
-            Sql: SELECT * FROM 'doorway/auth/*'
+            Sql: SELECT * FROM 'doorway/auth'
       RuntimeManagementConfig:
         UpdateRuntimeOn: Auto
 
@@ -67,14 +65,12 @@ Resources:
             - Effect: Allow
               Action:
                 - logs:CreateLogGroup
-              Resource:
-                Fn::Sub: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
+              Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
             - Effect: Allow
               Action:
                 - logs:CreateLogStream
                 - logs:PutLogEvents
-              Resource:
-                Fn::Sub: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/logMQTTMessages:*
+              Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/logMQTTMessages:*
       RecursiveLoop: Terminate
       SnapStart:
         ApplyOn: None
@@ -82,6 +78,6 @@ Resources:
         IoTRule1:
           Type: IoTRule
           Properties:
-            Sql: SELECT * FROM 'sdk/test/*'
+            Sql: SELECT * FROM 'sdk/test/#'
       RuntimeManagementConfig:
         UpdateRuntimeOn: Auto
