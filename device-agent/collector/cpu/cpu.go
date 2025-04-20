@@ -20,6 +20,6 @@ func GetCPU() (string, float64, error) {
 
 	totalPercent, _ := cpu.Percent(3*time.Second, false)
 	perPercents, _ := cpu.Percent(3*time.Second, true)
-	fmt.Printf("total percent:%v per percents:%v", totalPercent, perPercents)
+	fmt.Printf("total percent:%v per percents:%v\n", totalPercent, perPercents)
 	return info[0].ModelName, percent[0], nil
 }
