@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"device-agent/collector"
 	"device-agent/mqtt"
@@ -19,19 +20,20 @@ func init() {
 	}
 }
 
-func main() {
+func runTask() {
 	info, err := collector.CollectAll()
 	if err != nil {
-		log.Fatal("Error collecting system info:", err)
+		log.Println("❌ Error collecting system info:", err)
+		return
 	}
 
 	jsonData, _ := json.MarshalIndent(info, "", "  ")
-
 	fmt.Println("📦 Collected data:\n", string(jsonData))
 
 	client, err := mqtt.Connect()
 	if err != nil {
-		log.Fatal("❌ MQTT connection error:", err)
+		log.Println("❌ MQTT connection error:", err)
+		return
 	}
 
 	topic := os.Getenv("AWS_IOT_TOPIC")
@@ -41,8 +43,23 @@ func main() {
 
 	err = mqtt.PublishJSON(client, topic, jsonData)
 	if err != nil {
-		log.Fatal("❌ MQTT publish error:", err)
+		log.Println("❌ MQTT publish error:", err)
+		return
 	}
 
 	fmt.Println("✅ System info published successfully")
+}
+
+func main() {
+	for {
+		fmt.Println("⏱️ Starting every 30 seconds for a 5-minute collection cycle...")
+
+		for range 10 {
+			runTask()
+			time.Sleep(30 * time.Second)
+		}
+
+		fmt.Println("⏳ Waiting 55 minutes until next cycle...")
+		time.Sleep(55 * time.Minute) // wait until full hour
+	}
 }

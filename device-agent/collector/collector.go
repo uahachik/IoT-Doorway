@@ -7,8 +7,8 @@ import (
 
 type SystemInfo struct {
 	// Hostname    string
-	CPU string `json:"cpu"`
-	// CPUPercent  float64
+	CPUModel        string  `json:"cpu_model"`
+	CPUUsagePercent float64 `json:"cpu_usage_percent"`
 	// MemoryMB    uint64
 	// MemoryUsed  float64
 	// DiskTotalGB uint64
@@ -16,12 +16,12 @@ type SystemInfo struct {
 	// Battery     string
 	// IPs         []string
 	// Location    *utils.GeoLocation
-	CPUTemp float64 `json:"cpu_temp"`
+	CPUTemp float64 `json:"cpu_temperature"`
 }
 
 func CollectAll() (*SystemInfo, error) {
 	// host, _ := GetHost()
-	cpu, _, _ := cpu.GetCPU()
+	cpu, percent, err := cpu.GetCPU()
 	// memTotal, memUsed, _ := GetMemory()
 	// diskTotal, diskFree, _ := GetDisk()
 	// battery, _ := GetBattery()
@@ -31,14 +31,13 @@ func CollectAll() (*SystemInfo, error) {
 	cpuTemp, err := temp.GetCPUTemp()
 
 	if err != nil {
-		// Optional: you can handle or log the error differently if you want
 		return nil, err
 	}
 
 	return &SystemInfo{
 		// Hostname:    host,
-		CPU: cpu,
-		// CPUPercent:  usage,
+		CPUModel:        cpu,
+		CPUUsagePercent: percent,
 		// MemoryMB:    memTotal,
 		// MemoryUsed:  memUsed,
 		// DiskTotalGB: diskTotal,
